@@ -1,0 +1,34 @@
+﻿    public bool ParseGPGSV(string sentence)
+        {
+            int PseudoRandomCode = 0;
+            int Azimuth = 0;
+            int Elevation = 0;
+            int SignalToNoiseRatio = 0;
+            // Divide the sentence into words
+            string[] Words = GetWords(sentence);
+            // Each sentence contains four blocks of satellite information.  
+            // Read each block and report each satellite's information
+            int Count = 0;
+            for (Count = 1; Count <= 4; Count++)
+            {
+                // Does the sentence have enough words to analyze?
+                if ((Words.Length - 1) >= (Count * 4 + 3))
+                {
+                    // Yes.  Proceed with analyzing the block.  
+                    // Does it contain any information?
+                    if (Words[Count * 4] != "" & Words[Count * 4 + 1] != ""
+                       & Words[Count * 4 + 2] != "" & Words[Count * 4 + 3] != "")
+                    {
+                        // Yes. Extract satellite information and report it
+                        PseudoRandomCode = System.Convert.ToInt32(Words[Count * 4]);
+                        Elevation = Convert.ToInt32(Words[Count * 4 + 1]);
+                        Azimuth = Convert.ToInt32(Words[Count * 4 + 2]);
+                        SignalToNoiseRatio = Convert.ToInt32(Words[Count * 4 + 2]);
+                        // Notify of this satellite's information
+                       
+                    }
+                }
+            }
+            // Indicate that the sentence was recognized
+            return true;
+        }
